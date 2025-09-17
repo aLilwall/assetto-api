@@ -11,3 +11,10 @@ Throughout the development process, I acquired practical knowledge in deploying 
 - Building container images using Docker and Podman CLI tools
 - Setting up a cloud-based container registry to publish and manage images
 - Configuring a cloud container service to run containers from custom images
+
+## Installation 
+
+- Download ZIP
+- Extract to a folder
+- Create an Image using Podman or Docker
+- Run a container
