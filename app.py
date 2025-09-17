@@ -49,7 +49,7 @@ def get_item(item_name):
 
 
 @app.post("/item")
-def post():
+def post_item():
     """Post method that creates a new document in Cloundant.
     """
     data = request.get_json()
@@ -71,8 +71,35 @@ def post():
     if response.status_code == 201:
         document = response.json()
         return document
+    elif response.status_code == 409:
+        get = requests.get(
+            f"https://{ACCOUNT}.cloudantnosqldb.appdomain.cloud/blender-models/{_id}",
+            headers={
+                "content-type": "application/json",
+                "Authorization": f"Bearer {get_access_token(API_KEY)}"
+            }
+        )
+
+        data = get.json()
+        rev = data["_rev"]
+
+        response = requests.delete(
+            f"https://{ACCOUNT}.cloudantnosqldb.appdomain.cloud/blender-models/{_id}?rev={rev}",
+            headers={
+                "content-type": "application/json",
+                "Authorization": f"Bearer {get_access_token(API_KEY)}"
+            }
+        )
+        post_item()
     else:
         return f"Failed to create document, error code:{response.status_code}"
+
+
+@app.put("/item/<string:document_id>")
+def put_item(document_id):
+    """Put method that update a document in Cloudant.
+    """
+    pass
 
 
 @app.delete("/item/<string:document_id>")
