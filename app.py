@@ -44,7 +44,6 @@ def get_item(item_name):
 
     if response.status_code == 200:
         document = response.json()
-        print(document[item_name])
 
     return {item_name: document[item_name]}
 
