@@ -1,9 +1,13 @@
+import os
+from dotenv import load_env
 import requests
 from flask import Flask, request
 from cloudant_auth import get_access_token
 
-API_KEY = "mw-us01eVjYEtSIWjPVZ3xQ_sAKFBVDDZUeaEuwNbvX8"
-ACCOUNT = "a01a2d5d-4843-41b4-9b11-6d08205eefab-bluemix"
+load_env()
+
+API_KEY = os.getenv("CLOUDANT_API_KEY")
+ACCOUNT = os.getenv("ACCOUNT")
 
 app = Flask(__name__)
 
